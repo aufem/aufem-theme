@@ -1,0 +1,48 @@
+{% if grav.twig.enable %}
+
+    <h3 class="adicionar-comentario">Escreva um comentário</h3>
+
+    <form name="{{ grav.config.plugins.comments.form.name }}"
+          action="{{ grav.config.plugins.comments.form.action ?  base_url ~ grav.config.plugins.comments.form.action : page.url }}"
+          method="{{ grav.config.plugins.comments.form.method|upper|default('POST') }}">
+    {% for field in grav.config.plugins.comments.form.fields %}
+
+        {% set value = form.value(field.name) %}
+        {% if field.evaluateDefault %}
+            {% set value = evaluate(field.evaluateDefault) %}
+        {% endif %}
+        <div class="text">
+            {% include "forms/fields/#{field.type}/#{field.type}.html.twig" %}
+        </div>
+    {% endfor %}
+
+        <div class="buttons">
+        {% for button in grav.config.plugins.comments.form.buttons %}
+            <button class="btn-purple" type="{{ button.type|default('submit') }}">{{ button.value|default('Submit') }}</button>
+        {% endfor %}
+        </div>
+
+        {{ nonce_field('form', 'form-nonce') }}
+    </form>
+
+    <div class="alert">{{ form.message }}</div>
+
+    {% if grav.twig.comments|length %}
+
+        <h3 class="adicionar-comentario">Comentários</h3>
+
+        <table>
+            {% for comment in grav.twig.comments|array_reverse %}
+            <tr>
+                <td>
+                    <div class="comentario">
+                    {{comment.text}}
+                    <hr width="50%" align="left">
+                     <em>{{'PLUGIN_COMMENTS.BY'|t}}</em> <strong>{{comment.author}}</strong> <em>{{'PLUGIN_COMMENTS.WRITTEN_ON'|t}}</em> {{comment.date|e}} 
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+{% endif %}
