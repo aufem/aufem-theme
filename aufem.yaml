@@ -1,0 +1,9 @@
+enabled: true
+default_lang: pt-br
+
+streams:
+  schemes:
+    theme:
+      type: ReadOnlyStream
+      paths:
+        - user/themes/aufem

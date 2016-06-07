@@ -389,7 +389,7 @@ blockquote {
 }
 
 cite {
-	float: right;
+	display: block;
 	font-size: 1.3em;
 	text-align: center;
 	border-top: 1px solid #7A1EA1;
@@ -402,7 +402,7 @@ cite {
 }
 
 code {
-	padding: 1%;
+	padding: .1%;
 	border: 1px solid #7A1EA1;
 	background: #FFFFFF;
 	font-size: 1.1em;
